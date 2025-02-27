@@ -1,15 +1,31 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.12.0'
 }
 
 repositories {
     mavenCentral()
 }
 
+allure {
+    report {
+        version.set("2.32.2")
+    }
+
+    adapter {
+        frameworks {
+            junit {
+                adapterVersion.set("2.32.2")
+            }
+        }
+    }
+}
+
 dependencies {
     testImplementation('com.codeborne:selenide:7.7.0')
     testImplementation('org.junit.jupiter:junit-jupiter:5.11.4')
     testImplementation('com.github.javafaker:javafaker:1.0.2')
+    testImplementation('io.qameta.allure:allure-selenide:2.29.1')
 }
 
 test {
