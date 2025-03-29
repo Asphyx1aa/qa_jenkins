@@ -74,7 +74,6 @@ public class RegistrationFormTest extends BaseTest {
 
         step("Проверяем форму", () -> {
             registrationPage
-                    .submitRegistrationForm()
                     .checkUserData("Student Name", String.format("%s %s", student.setStudentName(), student.setStudentLastName()))
                     .checkUserData("Gender", student.setStudentGender())
                     .checkUserData("Mobile", student.setStudentNumber());
