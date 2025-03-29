@@ -54,4 +54,57 @@ public class RegistrationFormTest extends BaseTest {
                     .checkUserData("State and City", String.format("%s %s", student.setStudentState(), student.setStudentCity()));
         });
     }
+
+    @Test
+    void fillFormWithNecessaryFieldsTest() {
+
+        step("Заполняем форму", () -> {
+            registrationPage
+                    .openPage()
+                    .removeBanner()
+                    .setName(student.setStudentName())
+                    .setLastName(student.setStudentLastName())
+                    .setUserGender(student.setStudentGender())
+                    .setUserNumber(student.setStudentNumber());
+        });
+
+        step("Отправляем форму", () -> {
+            registrationPage.submitRegistrationForm();
+        });
+
+        step("Проверяем форму", () -> {
+            registrationPage
+                    .submitRegistrationForm()
+                    .checkUserData("Student Name", String.format("%s %s", student.setStudentName(), student.setStudentLastName()))
+                    .checkUserData("Gender", student.setStudentGender())
+                    .checkUserData("Mobile", student.setStudentNumber());
+        });
+    }
+
+    @Test
+    void fillFormWithoutNecessaryFieldsTest() {
+
+        step("Заполняем форму", () -> {
+            registrationPage
+                    .openPage()
+                    .removeBanner()
+                    .setUserEmail(student.setStudentMail())
+                    .setUserBirthday(student.setStudentDayOfBirth(), student.setStudentMonthOfBirth(), student.setStudentYearOfBirth())
+                    .setUserSubjects(student.setStudentSubjects())
+                    .setUserHobbies(student.setStudentHobbies())
+                    .uploadUserPicture(student.setStudentPicture())
+                    .setUserAddress(student.setStudentAddress())
+                    .setUserState(student.setStudentState())
+                    .setUserCity(student.setStudentCity());
+        });
+
+        step("Отправляем форму", () -> {
+            registrationPage.submitRegistrationForm();
+        });
+
+        step("Проверяем, что форма не создана", () -> {
+            registrationPage
+                    .checkTableExist();
+        });
+    }
 }
