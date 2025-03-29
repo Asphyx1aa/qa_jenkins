@@ -33,7 +33,7 @@ public class RegistrationPage {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('div[style=\"margin-bottom: 50px;\"]').remove()");
-        executeJavaScript("$('data-anchor-status=\"displayed\"]').remove()");
+        executeJavaScript("$('[data-anchor-status=\"displayed\"]').remove()");
 
         return this;
     }
