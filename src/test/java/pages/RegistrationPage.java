@@ -100,21 +100,21 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setUserState(String value) {
-        userStateSelect.click();
+        userStateSelect.scrollTo().click();
         userStateSelect.$(byText(value)).click();
 
         return this;
     }
 
     public RegistrationPage setUserCity(String value) {
-        userCitySelect.click();
+        userCitySelect.scrollTo().click();
         userCitySelect.$(byText(value)).click();
 
         return this;
     }
 
     public RegistrationPage submitRegistrationForm() {
-        submitButton.click();
+        submitButton.scrollTo().click();
 
         return this;
     }
