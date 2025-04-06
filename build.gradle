@@ -29,6 +29,7 @@ dependencies {
 }
 
 test {
+    systemProperties(System.getProperties())
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"

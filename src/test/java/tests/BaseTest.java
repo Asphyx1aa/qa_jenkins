@@ -14,11 +14,13 @@ import java.util.Map;
 public class BaseTest {
     @BeforeAll
     static void setUpTest() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
+        Configuration.baseUrl = System.getProperty("host", "https://demoqa.com");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserVersion = System.getProperty("browser_version", "128.0");
         Configuration.pageLoadStrategy = "eager";
         SelenideLogger.addListener("allure", new AllureSelenide());
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = getServer();
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
@@ -26,6 +28,14 @@ public class BaseTest {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
+    }
+
+    static String getServer() {
+        String username = System.getProperty("login", null);
+        String password = System.getProperty("password", null);
+        String wdhost = System.getProperty("wdhost", null);
+
+        return "https://" + username + ":" + password + "@" + wdhost;
     }
 
     @AfterEach
